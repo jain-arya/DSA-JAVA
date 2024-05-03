@@ -1,12 +1,5 @@
-import java.util.Scanner;
-
-class Node{
-    Node ladd;
-    int data;
-    Node radd;
-}
-
-class Test{
+import java.util.*;
+class Main{
     public static void main(String args[]){
         Node root = null;
         int n , no;
@@ -17,7 +10,8 @@ class Test{
             System.out.println("Press 2 for inorder");
             System.out.println("Press 3 for preorder");
             System.out.println("Press 4 for postorder");
-            System.out.println("Press 5 to exit");
+            System.out.println("Press 5 for level");
+            System.out.println("Press 6 to exit");
             System.out.println("Enter your choice");
             Scanner z = new Scanner(System.in);
             n = z.nextInt();
@@ -33,13 +27,14 @@ class Test{
                 case 2: inorder(root); break;
                 case 3: preorder(root); break;
                 case 4: postorder(root); break;
-                case 5: break;
+                case 5: level(root); break;
+                case 6: break;
                 default : System.out.println("Invalid no!!!");
             }
         }
-        while(n != 5);
+        while(n != 6);
     }
-    static  create(Node p , int no){
+    static  Node create(Node p , int no){
         if(p == null){
             p = new Node();
             p.ladd = null;
@@ -83,8 +78,43 @@ class Test{
             System.out.print(p.data + " ");
         }
     }
+
+    static void level(Node p){
+        if(p == null){
+            return;
+        }
+        Queue <Node> q = new LinkedList<>();
+        q.add(p);
+        q.add(null);
+        while(!q.isEmpty()){
+            Node currnode = q.remove();
+            if(currnode == null){
+                System.out.println();
+                if(q.isEmpty()){
+                    break;
+                }    
+                else{
+                    q.add(null);
+                }        
+            }
+            else{
+                System.out.print(currnode.data + " ");
+                if(currnode.ladd != null){
+                    q.add(currnode.ladd);
+                }
+                if(currnode.radd != null){
+                    q.add(currnode.radd);
+                }
+            }
+        }
+    }
 }
 
+class Node{
+    Node ladd;
+    int data;
+    Node radd;
+}
     
 
 
