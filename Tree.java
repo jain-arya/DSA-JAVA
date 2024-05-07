@@ -13,7 +13,8 @@ class Main{
             System.out.println("Press 5 for level");
             System.out.println("Press 6 for total no of nodes");
             System.out.println("Press 7 for height of tree");
-            System.out.println("Press 8 to exit");
+            System.out.println("Press 8 max diameter");
+            System.out.println("Press 9 to exit");
             System.out.println("Enter your choice");
             Scanner z = new Scanner(System.in);
             n = z.nextInt();
@@ -33,13 +34,14 @@ class Main{
                 case 6: System.out.println("Total no of nodes = " + count(root));
                         break;
                 case 7: System.out.println("Height of tree is = " + height(root)); break;
-                case 8: break;
+                case 8: System.out.println(diameter(root)); break;
+                case 9: break;
                 default : System.out.println("Invalid no!!!");
             }
         }
-        while(n != 8);
+        while(n != 9);
     }
-    static  Node create(Node p , int no){
+    static Node create(Node p , int no){
         if(p == null){
             p = new Node();
             p.ladd = null;
@@ -132,6 +134,17 @@ class Main{
         int ans = Math.max(l,r);
         return ans+1;
     }
+    
+    static int diameter(Node p){
+        if(p == null){
+            return 0;
+        }
+        int d1 = diameter(p.ladd);
+        int d2 = diameter(p.radd);
+        int d3 = height(p.ladd) + height(p.radd);
+        return Math.max(d3,Math.max(d1,d2));
+    }
+    
 }
 
 class Node{
@@ -139,11 +152,3 @@ class Node{
     int data;
     Node radd;
 }
-    
-
-
-
-
-
-
-
